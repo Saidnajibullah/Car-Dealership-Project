@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>DOM</title>
+</head>
+<body>
+  
+  <div>
+    <div>
+      <h3>Sum: <span id="sum"></span></h3>
+      <h5 id="currentTime"></h5>
+    </div>
+    <div>
+      <h1>United <span data-customAttr="USA">States</span> of America (<span>USA</span>)</h1>
+      <div><a>Click Here</a><a>Click Here</a><a>Click Here</a><a>Click Here</a><a>Click Here</a></div>
+      <a>Click Here</a>
+      <a>Click <span>Here1</span></a>
+      <a>Click Here</a>
+      <div>
+	  <select name="colors">
+	    <option value="green">Green</option>
+	    <option value="blue">Blue</option>
+	    <option value="red" selected="selected">Red</option>
+	    <option value="purple">Purple</option>
+	    <option value="yellow" selected="selected">Yellow</option>
+	  </select>
+      </div>
+    </div>
+    <p id="helloWorld">Hello, World!</p>
+    <div>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Department</th>
+        </tr>
+        <tr>
+          <td class="empName">John</td>
+          <td>Sales</td>
+        </tr>
+        <tr>
+          <td class="empName">Amy</td>
+          <td>Finance</td>
+        </tr>
+        <tr>
+          <td class="empName">Austin</td>
+          <td>Sales</td>
+        </tr>
+        <tr>
+          <td class="empName">Katie</td>
+          <td>Marketing</td>
+        </tr>
+        <tr>
+          <td class="empName" data-customAttr="court">Courtney</td>
+          <td>Sales</td>
+        </tr>
+        <tr>
+          <td class="empName">Scout</td>
+          <td>Sales</td>
+        </tr>
+      </table>
+    </div>
+    <form id="firstForm">
+      <a>Click <span>Here2</span></a>
+	  <input type="text" data-customAttr="7"/><br/>
+	  <input type="text" data-customAttr="24"/><br/>
+	  <input type="radio" name="favoriteAnimal" value="dog"/>Dog<br/>
+	  <input type="radio" name="favoriteColor" value="blue"/>Blue<br/>
+	  <input id="num1" class="nums" type="text"/><br/>
+	  <input type="radio" name="favoriteAnimal" value="cat"/>Cat<br/>
+	  <input type="radio" name="favoriteColor" value="red"/>Red<br/>
+	  <input type="radio" name="favoriteAnimal" value="horse"/>Horse<br/>
+	  <input type="radio" name="favoriteAnimal" value="dolphin"/>Dolphin<br/>
+	  <a>Click <span>Here</span></a><br/>
+	  <input type="radio" name="favoriteAnimal" value="eagle"/>Eagle<br/>
+	  <input type="radio" name="favoriteColor" value="green"/>Green<br/>
+	  <input type="radio" name="favoriteColor" value="orange"/>Orange<br/>
+	  <select name="hobbies">
+	    <option value="photography">Photography</option>
+	    <option value="football" selected="selected">Football</option>
+	    <option value="kayaking" selected="selected">Kayaking</option>
+	    <option value="hiking">Hiking</option>
+	    <option value="programming" selected="selected">Programming</option>
+	  </select>
+	  <input id="num2" class="nums" type="text"/>
+	  <select name="skills">
+	    <option value="java">Java</option>
+	    <option value="net">.NET</option>
+	    <option value="dom" selected="selected">DOM</option>
+	    <option value="html">HTML</option>
+	    <option value="css">CSS</option>
+	    <option value="javascript" selected="selected">Javascript</option>
+	  </select>
+    </form>
+  </div>
+  <a>Click Here</a>
+  <a>Click <span data-customAttr="500">Here3</span></a>
+  <a>Click Here</a><br><br>
+  <div>
+    <p id="usa"></p>
+    <p id="n"></p>
+    <p id="sc"></p>
+    <p id="hobbies"></p>
+    <p id="custome-data"></p><br>
+    <div id="formDive"></div>
+  </div>
+	  
+  <script type="text/javascript">
+    //TODO: Javascript homework
+
+       window.onload = function(){
+           getUSA();
+           getDepartments();
+           getAnchorChildren();
+           getHobbies();
+           getCustomAttribute();
+           addInputs();
+           skillAlert();
+           hideAndShow();
+           setInterval(getCurrentTime, 1000);
+           setTimeout(setRandomColor, 6000);
+           
+       }
+     
+      // Question # 1
+      function getUSA(){
+        let usa = document.getElementsByTagName("h1")[0].children[1].textContent;
+        let p = document.getElementById("usa").innerHTML = usa;
+      }
+
+      //Question # 2
+
+      function getDepartments(){
+        let name = "";
+        var names = document.getElementsByClassName('empName');
+        for(let i = 0; i <= names.length; i++){
+          if(names[i] == undefined){
+            continue;
+          }else if(names[i].nextElementSibling.textContent == "Sales"){
+            name += names[i].textContent + "<br>";
+          }
+        }
+        
+        document.getElementById('n').innerHTML = name;
+      }
+
+      //Question # 3
+      function getAnchorChildren(){
+        let as = document.getElementsByTagName('a');
+        let spcont = "";
+        for(i = 0; i < as.length; i++){
+            let sp = as[i].firstElementChild;
+            if(sp){
+              spcont += sp.textContent + "<br>";
+              
+            }
+        }
+        document.getElementById("sc").innerHTML = spcont;
+        
+      }
+
+      //Question # 4
+
+      function getHobbies(){
+        let val = "";
+        let hobbies = document.forms[0].hobbies;
+        for (i = 0; i < hobbies.length; i++) {
+          val += "Option's Content: " + hobbies.options[i].text +
+          ", Option's Value: " + hobbies.options[i].value + "<br>";
+        }
+  
+         document.getElementById("hobbies").innerHTML = val;
+      }
+
+      // Question # 5
+
+      function getCustomAttribute(){
+        let custAtt = "";
+        let elt = document.querySelectorAll("[data-customAttr]");
+        
+        for (let item of elt) {
+            custAtt += " Element Name: " + item.tagName + ", Data Value: " + 
+            item.getAttribute("data-customAttr") + "<br>";
+        }
+        document.getElementById("custome-data").innerHTML = custAtt;
+        
+      }
+
+      //Question # 6
+      function addInputs(){
+        let div = document.getElementById("formDive");
+        let form1 = document.createElement("form");
+        div.appendChild(form1);
+        let input1 = document.createElement("input");
+        input1.type = "text";
+        input1.id = "num1";
+        input1.className = "num";
+        form1.appendChild(input1);
+        let input2 = document.createElement("input");
+        input2.type = "text";
+        input2.id = "num1";
+        input2.className = "num";
+        form1.appendChild(input2);
+        var h = document.createElement("H3")  
+        div.appendChild(h);         
+        var t = document.createTextNode("Sum: ");  
+        h.appendChild(t); 
+        var sp = document.createElement("SPAN");
+        sp.id = "sum";
+        h.appendChild(sp);  
+        input2.addEventListener("change", function(e){
+          e.preventDefault();
+          let n1 = input1.value;
+          let n2 = input2.value;
+          if(n1.NaN || n2.NaN){
+            sp.innerHTML =  "Connot be added"; 
+          }else{
+            sp.innerHTML = (Number(n1)) + (Number(n1));
+          }
+          
+        });
+       
+      }
+      
+      //Question # 7
+
+      function skillAlert(){
+        var elt = "";
+        let skills = document.getElementsByName("skills")[0];
+        skills.addEventListener("change", function(e){
+          alert("Are you sure " + e.currentTarget.value + " is one of your skills?");
+        }); 
+      }
+
+      //Question # 8
+
+      function changeColorAlerts(){
+          colors = document.getElementsByName("favoriteColor");
+          for(let i = 0; i <= colors.length; i++){
+            if(colors[i] == undefined){
+              continue;
+            }
+            else{
+              colors[i].addEventListener("change", function(e){
+              alert("So you like " + e.target.value + " more than " + colors[i + 1].value  +" now?");
+            })
+            }
+          }
+          
+      }
+      //Question # 9
+      function hideAndShow(){
+        let empsName = document.getElementsByClassName("empName");
+        for(let i = 0; i <= empsName.length; i++){
+          
+          if(empsName[i] === undefined){
+            continue;
+          }else{
+            empsName[i].addEventListener("mouseover", function(e){
+               e.currentTarget.style.color = "transparent";
+            });
+            empsName[i].addEventListener("mouseleave", function(e){
+               e.currentTarget.style.color = "black";
+            });
+            
+          }
+        }
+      }
+
+      //Question # 10
+      function getCurrentTime(){
+        let elt = document.getElementById("currentTime");;
+        let date = new Date();
+        curtime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        if(date.getHours() <= 12 && date.getHours() > 24){
+          curtime += " AM"; 
+        }else{
+          curtime += " PM"; 
+        }
+        elt.innerHTML = curtime;
+        
+      }
+
+      //Question # 11
+      //For some reason the element should be double clicked to see the results.
+      function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+      function setRandomColor(){
+        let elt = document.getElementById("helloWorld");
+        elt.addEventListener("click", function(){
+          setTimeout(function(){
+            elt.style.color = getRandomColor();
+          }, 3000);
+        });
+      }
+
+
+     //Question # 12
+     //honestly I did not quite understand what this question wants.
+      function walkTheDOM(node, f){
+         node1 = document.getElementsByTagName(node);
+         for(let i = 0; i <= node1.length; i++){
+           node1[i].f();
+         }
+      }
+      
+     
+
+  </script>
+  
+</body>
+</html>
